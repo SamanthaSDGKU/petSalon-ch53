@@ -1,5 +1,5 @@
 let pets =[];//empty array
-
+//object literal
 let petSalon = {
     name:"The Fashion Pet",
     address:{
@@ -7,44 +7,40 @@ let petSalon = {
         zip:"22900"
     }
 }
-
-//creating the pets
-let pet1={
-    name:"Scooby",
-    age:80,
-    gender:"Male",
-    breed:"Dane",
-    service:"Grooming"
-}
-let pet2={
-    name:"Scrappy",
-    age:70,
-    gender:"Male",
-    breed:"Mixed",
-    service:"Vaccines"
-}
-let pet3={
-    name:"Speedy",
-    age:80,
-    gender:"Male",
-    breed:"Dane",
-    service:"Grooming"
-}
-let pet4={
-    name:"Tweety",
-    age:80,
-    gender:"Male",
-    breed:"Dane",
-    service:"Grooming"
+//object constructor
+function Pet(name,age,gender,breed,service){
+    this.name=name;
+    this.age=age;
+    this.gender=gender;
+    this.breed=breed;
+    this.service=service;
 }
 
-//push the obj into the array
-pets.push(pet1,pet2,pet3,pet4);
+//register function 
+function register(){
+    let inputName=document.getElementById("txtName").value;
+    let inputAge=document.getElementById("txtAge").value;
+    let inputGender=document.getElementById("txtGender").value;
+    let inputBreed=document.getElementById("txtBreed").value;
+    let inputService=document.getElementById("txtService").value;
 
-function displayPetNames(){
-    for(let i=0;i<4;i++){
-        document.getElementById("petList").innerHTML+=`<li> ${pets[i].name} </li>`;
-    }
-    document.getElementById("petList").innerHTML+= "We have: " + pets.length + " pets";
+    console.log(inputName,inputAge,inputGender,inputBreed,inputService);
+    // create the obj
+    let newPet = new Pet(inputName,inputAge,inputGender,inputBreed,inputService);
+    //push the obj to the array
+    pets.push(newPet);
+    //clear an input: document.getElementById("txtName").value="";
+    //display the obj on the console
+    console.log(pets);
 }
 
+
+function init(){
+    //execution code should be inside of this function 
+    let pet1 = new Pet("Scooby",99,"Male","Dane","Grooming");//creating an obj
+    //create two more pets
+    let pet2 = new Pet("Scrappy",98,"Male","Mixed","Vaccines");
+    pets.push(pet1,pet2);
+}
+
+window.onload=init;//wait to render the HTML
