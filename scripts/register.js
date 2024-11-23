@@ -1,4 +1,5 @@
 let pets =[];//empty array
+
 //object literal
 let petSalon = {
     name:"The Fashion Pet",
@@ -7,6 +8,7 @@ let petSalon = {
         zip:"22900"
     }
 }
+
 //object constructor
 function Pet(name,age,gender,breed,service){
     this.name=name;
@@ -14,6 +16,33 @@ function Pet(name,age,gender,breed,service){
     this.gender=gender;
     this.breed=breed;
     this.service=service;
+}
+
+// validations
+function isValid(pet){
+    let validation = true; //boolean result
+    let inputName = document.getElementById("txtName");
+    let inputAge = document.getElementById("txtAge");
+
+    if(pet.name == ""){
+        validation = false;
+        inputName.classList.add("error");
+    }
+
+    if(pet.age == "") {
+        validation = false;
+        inputAge.classList.add("error");
+    }
+
+    return validation; //boolean result
+}
+
+function deletePet(petId){
+    console.log("Delete pets" + petId);
+    document.getElementById(petId).remove();
+    pets.splice(petId,1);
+    displayPet();
+    displayInfo();
 }
 
 //register function 
@@ -25,22 +54,43 @@ function register(){
     let inputService=document.getElementById("txtService").value;
 
     console.log(inputName,inputAge,inputGender,inputBreed,inputService);
+    
     // create the obj
     let newPet = new Pet(inputName,inputAge,inputGender,inputBreed,inputService);
-    //push the obj to the array
-    pets.push(newPet);
-    //clear an input: document.getElementById("txtName").value="";
-    //display the obj on the console
-    console.log(pets);
+    console.log("newPet = ", newPet);
+
+    // check validations
+    if(isValid(newPet) == true) {
+        //push the obj to the array
+        pets.push(newPet);
+        displayPet();
+        //clear an input: document.getElementById("txtName").value="";
+        //display the obj on the console
+        console.log(pets);
+
+        clearForm();
+    }
+    
 }
 
+function clearForm(){
+    document.getElementById("txtName").value = "";
+    document.getElementById("txtAge").value = "";
+    document.getElementById("txtGender").value = "";
+    document.getElementById("txtBreed").value = "";
+    document.getElementById("txtService").value = "";
+}
 
 function init(){
     //execution code should be inside of this function 
     let pet1 = new Pet("Scooby",99,"Male","Dane","Grooming");//creating an obj
     //create two more pets
-    let pet2 = new Pet("Scrappy",98,"Male","Mixed","Vaccines");
-    pets.push(pet1,pet2);
+    let pet2 = new Pet("Scrappy",98,"Female","Mixed","Vaccines");
+    let pet3 = new Pet("Scrappy",98,"Female","Mixed","Grooming");
+    let pet4 = new Pet("Scrappy",98,"Female","Mixed","Nails");
+    pets.push(pet1,pet2,pet3,pet4);
+
+    displayPet();
 }
 
 window.onload=init;//wait to render the HTML
